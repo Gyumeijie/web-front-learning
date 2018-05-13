@@ -11,6 +11,7 @@ In framework, all the ***control flow*** is already there, and there are a bunch
 out with our code. A framework is normally more complex. It defines a skeleton where the application defines its own features
 to fill out the skeleton. In this way, your code will be called by the framework when appropriately. The benefit is that 
 developers do not need to worry about if a design is good or not, but just about implementing ***domain specific functions***.
+> Frameworks are designed to solve recurring problems in application development. Whatever the task in an application, by using a framework, you ensure consistency and efficiency in tackling that task. This is what frameworks are all about: consistently and effectively providing solutions to problems in a structured manner. 
 
 # Library, Framework and your Code image representation
 ![framework_vs_library](../assets/framework_vs_library.png)
