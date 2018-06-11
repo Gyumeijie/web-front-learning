@@ -26,8 +26,7 @@ on top of the core JavaScript language, providing you with extra superpowers to 
 Any of the web APIs pushes the callback on to the task queue when it's done.
 
 - ## event loop
-The event loop's job is to look at the stack and look at the task queue. If the stack is empty it takes the first thing on the 
-queue and pushes it on to the stack which effectively run it.
+The event loop's job is to look at the stack and look at the task queue. If the stack is empty it takes the first thing on the queue and pushes it on to the stack which effectively run it.
 
 # Example
 
@@ -40,6 +39,4 @@ console.log("world");
 
 for (let i=0; i<1000000000; i++);
 ```
-when run the code snippet above, the console will first print `world` and then `hello`. For the ```console.log("world");``` is 
-synchronous task and will be taken high priority to execute, the `for loop` is also a synchronous task. Only after all the synchronous
-tasks finished, and the stack is empty, asynchronous tasks already in queue can be processed.
+when run the code snippet above, the console will first print `world` and then `hello`. For the ```console.log("world");``` is ***synchronous*** task and will be taken high priority to execute, the `for loop` is also a ***synchronous*** task. Only after all the ***synchronous*** tasks finished, and the stack is empty, ***asynchronous*** tasks already in queue can be processed.
