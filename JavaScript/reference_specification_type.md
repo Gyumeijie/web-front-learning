@@ -53,19 +53,19 @@ name, and a Boolean flag ***strict***. The value of ***lex*** may be **null**. W
 (***A simple lookup through the chain of lexical environments***)
 
 1. If ***lex*** is the value **null**, then
-	a. Return a value of type **Reference** whose base value is **undefined**, whose referenced name is name, and whose strict
+    1. Return a value of type **Reference** whose base value is **undefined**, whose referenced name is name, and whose strict
   mode flag is strict.
 > The identifier cann't not find in any Lexical Environment.
 
 2. Let ***envRec*** be ***lex***’s environment record.
 3. Let ***exists*** be the result of calling the HasBinding(N) concrete method of ***envRec*** passing ***name*** as the argument N.
 4. If ***exists*** is **true**, then
-	a. Return a value of type **Reference** whose base value is **envRec**, whose referenced name is name, and whose strict mode flag is strict.
+    1. Return a value of type **Reference** whose base value is **envRec**, whose referenced name is name, and whose strict mode flag is strict.
 > Note: the ***envRec*** can be either a ***object environment record*** or ***declarative environment record***.
 
 5. Else
-	a. Let ***outer*** be the value of ***lex***’s outer environment reference.
-	b. Return the result of calling **GetIdentifierReference** passing ***outer***, ***name***, and ***strict*** as arguments.
+   1. Let ***outer*** be the value of ***lex***’s outer environment reference.
+   1. Return the result of calling **GetIdentifierReference** passing ***outer***, ***name***, and ***strict*** as arguments.
  > Recursively call the GetIdentifierReference.
 
 #### section(#1) summary 
