@@ -185,3 +185,6 @@ So when the funciton ***getName*** is called, the ***thisValue*** is set to  the
 concrete method of GetBase(ref), the binding object ***obj*** of the ***Object Environment Record***.  So when the function code
 is executed, it will alert "obj" instead of "global".
 
+## References
+- [Know thy reference](http://perfectionkills.com/know-thy-reference/)
+- [Annotated ECMAScript 5.1](https://es5.github.io/)
