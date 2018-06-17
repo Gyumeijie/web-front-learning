@@ -179,6 +179,7 @@ foo = {
 And we will explore ***this*** behavior of (f = foo.bar)(), (1,foo.bar)(), and (foo.bar)().
 
 Let's start with the first one. The expression in question is known as **Simple Assignment**(=).`foo = 1`, `g = function(){}`, and so on. If we look at the steps taken to evaluate [Simple Assignment](https://es5.github.io/#x11.13.1), we'll see one important detail:
+
 (AssignmentExpression : LeftHandSideExpression = AssignmentExpression)
 
 1. Let ***lref*** be the result of evaluating LeftHandSideExpression.
@@ -193,6 +194,7 @@ Let's start with the first one. The expression in question is known as **Simple 
 Notice that the expression on the right is passed through internal `GetValue()` before assignment. `GetValue()` in its turn, transforms foo.bar ***Reference*** into an actual ***function object***. :star: And of course then we proceed to the usual Function Call with ***NOT a reference***:exclamation:, which results in `this=undefined`.
 
 The same story happens with comma operator:
+
 (Expression : Expression , AssignmentExpression)
 
 1. Let ***lref*** be the result of evaluating ***Expression***.
@@ -205,6 +207,7 @@ The same story happens with comma operator:
 `(1,foo.bar)()` is evaluated as a function object and Function Call with ***NOT a reference***:exclamation:, results in `this=undefined`.
 
 Finally, the grouping operator:
+
 (PrimaryExpression : ( Expression ))
 
 1. Return the result of evaluating Expression. This may be of type Reference. 
