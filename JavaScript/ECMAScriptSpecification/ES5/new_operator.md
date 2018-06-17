@@ -21,13 +21,12 @@ method of base passing ***GetReferencedName(V)*** and ***IsStrictReference(V)***
 
 #### #1 [[Construct]]
 
-When the ***[[Construct]]*** internal method for a Function object ***F*** is called with a possibly empty list of ***arguments***,
-the following steps are taken:
+When the ***[[Construct]]*** internal method for a Function object ***F*** is called with a possibly empty list of ***arguments***, the following steps are taken:
 
 1. Let ***obj*** be a newly created native ECMAScript object.
 2. Set all the internal methods of ***obj***.
 3. Set the ***[[Class]]*** internal property of obj to "***Object***".
-> Steps 1, 2 and 3: Created a new Object as ***instance***.
+> Steps 1, 2 and 3: Created a new Object as ***instance***.  :star:
 > 
 > The ***[[Class]]*** of the object created by built-in Function such as Date, Error is set to a corresponding special value for example "Date", "Error".
 
@@ -35,16 +34,16 @@ the following steps are taken:
 5. Let ***proto*** be the value of calling the ***[[Get]]*** internal property of ***F*** with argument "***prototype***".
 6. If Type(***proto***) is Object, set the ***[[Prototype]]*** internal property of ***obj*** to ***proto***.
 7. If Type(***proto***) is not Object, set the ***[[Prototype]]*** internal property of ***obj*** to the standard built-in Object prototype object.
-> Steps 5, 6 and 7: set [[Prototype]] internal property of ***obj***.
+> Steps 5, 6 and 7: set [[Prototype]] internal property of ***obj***. :star:
 
 8. Let ***result*** be the result of calling the ***[[Call]]*** internal property of ***F***, providing ***obj*** as the ***this*** value and providing the argument ***list*** passed into ***[[Construct]]*** as args.
 > Step 8: calling the constructor ***F***.
 > 
-> Functions in ES5 are dual-purpose: can be called with or without ***new*** operator.
+> Functions in ES5 are dual-purpose: can be called with or without ***new*** operator. :star:
 > - If a function ***f*** called with ***new***, then the ***[[Construct]]*** internal `method` of ***f*** is called first and then the ***[[Call]]*** internal `method`.
 > - Otherwise, only the ***[[Call]]*** internal `method` of ***f*** is called.
 
-9. If Type(***result***) is Object then return result.
+9. If Type(***result***) is Object then return result. :star:
 ```javascript
 function Person(name, age){  
    this.name = name;
@@ -69,7 +68,7 @@ p = new Person("YuMeiJie", 25);
 
 When the ***[[Call]]*** internal method for a Function object ***F*** is called with a ***this*** value and a list of ***arguments***, the following steps are taken:
 
-1. Let ***funcCtx*** be the result of establishing a new execution context for function code using the value of ***F***'s ***[[FormalParameters]]*** internal property, the passed arguments List ***args***, and the ***this*** value
+1. Let ***funcCtx*** be the result of establishing a new execution context for function code using the value of ***F***'s ***[[FormalParameters]]*** internal property, the passed arguments List ***args***, and the ***this*** value.
 > Step 1: initialize environment.
 > - Establish a new execution context.
 > - Enter function code and perform ***Declaration Binding Instantiation***(a.k.a [hoisting](../../hoisting.md)).
@@ -84,6 +83,6 @@ When the ***[[Call]]*** internal method for a Function object ***F*** is called 
 4. If **result**.type is **throw** then throw result.value.
 5. If **result**.type is **return** then return result.value.
 6. Otherwise **result**.type must be **normal**. Return undefined.
-> Steps 4, 5 and 6: return the the result of evaluating the function body. 
+> Steps 4, 5 and 6: return the the result of evaluating the function body. :star:
 > 
 > Of all the types of Completion, only the **throw**, **return** and **normal**  cause the exit of the function context.
