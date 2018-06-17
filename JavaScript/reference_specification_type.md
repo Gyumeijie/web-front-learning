@@ -9,7 +9,7 @@ ECMAScript defines ***Reference*** as a ***"resolved name binding".*** It's an a
 — ***base***, ***name***, and ***strict flag***. 
 
 There are two cases when ***Reference*** is **created**: in the process of ***Identifier resolution*** and during ***property access***.
-> It is important to know whena **Reference** is created.
+> It is important to know when a **Reference** is created.
 
 Every time a ***Reference*** is created, its components — ***"base"*** , ***"name"*** , ***"strict"*** — are set to some values. 
 The strict flag is easy — it's there to denote if code is in strict mode or not. The "name" component is set to identifier or 
