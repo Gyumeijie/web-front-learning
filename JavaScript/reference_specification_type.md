@@ -15,8 +15,7 @@ Every time a ***Reference*** is created, its components — ***"base"*** , ***"n
 The strict flag is easy — it's there to denote if code is in strict mode or not. The "name" component is set to identifier or 
 property name that's being resolved, and the base is set to either property object or environment record.
 > Note: the **base** value is either ***undefined***, an ***Object***, a ***Boolean***, a ***String***, a ***Number***, or 
-an ***environment record***.  A base value of ***undefined*** indicates that the reference could not be resolved to a binding. 
-The referenced name is a String. 
+an ***environment record***.  A base value of ***undefined*** indicates that the reference could not be resolved to a binding. The referenced name is a String. 
 
 It might help to think of References as ***plain JS objects with a null [[Prototype]]*** (i.e. with no "prototype chain"), 
 containing only "base", "name", and "strict" properties; this is how we can illustrate them below:
@@ -37,8 +36,7 @@ var Reference = {
 
 #### #1 Identifier Resolution
 
-***Identifier resolution*** is the process of determining the ***binding*** of an ***Identifier*** using the ***LexicalEnvironment*** 
-of the ***running execution context***. 
+***Identifier resolution*** is the process of determining the ***binding*** of an ***Identifier*** using the ***LexicalEnvironment*** of the ***running execution context***. 
 
 During ***execution*** of ECMAScript code, the syntactic production PrimaryExpression : Identifier is evaluated using the following algorithm:
 1. Let ***env*** be the running execution context’s ***LexicalEnvironment***.
@@ -48,13 +46,10 @@ During ***execution*** of ECMAScript code, the syntactic production PrimaryExpre
 
 > The result of evaluating an identifier is always a value of type Reference with its referenced name component equal to the Identifier String.
 
-The abstract operation ***GetIdentifierReference*** is called with a Lexical Environment ***lex***, an ***identifier*** String
-name, and a Boolean flag ***strict***. The value of ***lex*** may be **null**. When called, the following steps are performed:
-(***A simple lookup through the chain of lexical environments***)
+The abstract operation ***GetIdentifierReference*** is called with a Lexical Environment ***lex***, an ***identifier*** String name, and a Boolean flag ***strict***. The value of ***lex*** may be **null**. When called, the following steps are performed:(***A simple lookup through the chain of lexical environments***)
 
 1. If ***lex*** is the value **null**, then
-    1. Return a value of type **Reference** whose base value is **undefined**, whose referenced name is name, and whose strict
-  mode flag is strict.
+    1. Return a value of type **Reference** whose base value is **undefined**, whose referenced name is name, and whose strict mode flag is strict.
 > The identifier cann't not find in any Lexical Environment.
 
 2. Let ***envRec*** be ***lex***’s environment record.
@@ -65,7 +60,7 @@ name, and a Boolean flag ***strict***. The value of ***lex*** may be **null**. W
 
 5. Else
    1. Let ***outer*** be the value of ***lex***’s outer environment reference.
-   1. Return the result of calling **GetIdentifierReference** passing ***outer***, ***name***, and ***strict*** as arguments.
+   2. Return the result of calling **GetIdentifierReference** passing ***outer***, ***name***, and ***strict*** as arguments.
  > Recursively call the GetIdentifierReference.
 
 #### section(#1) summary 
@@ -108,12 +103,9 @@ The production MemberExpression : MemberExpression [ Expression ] is evaluated a
 5. Call CheckObjectCoercible(baseValue). 
 6. Let ***propertyNameString*** be ToString(***propertyNameValue***).
 7. If the syntactic production that is being evaluated is contained in strict mode code, let strict be true, else let strict be false.
-8. Return a value of type **Reference** whose base value is ***baseValue*** and whose referenced name is ***propertyNameString***, 
-and whose strict mode flag is strict.
+8. Return a value of type **Reference** whose base value is ***baseValue*** and whose referenced name is ***propertyNameString***, and whose strict mode flag is strict.
 
-
-The abstract operation ***CheckObjectCoercible*** throws an **error** if its argument is a value that cannot be converted to an
-Object using ToObject. 
+The abstract operation ***CheckObjectCoercible*** throws an **error** if its argument is a value that cannot be converted to an Object using ToObject. 
 
 Argument Type | Result
 ----  |  ---
@@ -131,14 +123,11 @@ Object | Return
 ```
 
 #### section(#2) summary 
-The ***base*** value of a ***Reference*** created during **Property Accessing** can be a ***Number*** , ***String***, ***Boolean*** 
-or an ***Object***.
+The ***base*** value of a ***Reference*** created during **Property Accessing** can be a ***Number*** , ***String***, ***Boolean*** or an ***Object***.
 
 ----------------
 
-Essentially, ***References*** are a simple mechanism of representing name bindings; it's a way to abstract both object-property
-resolution and variable resolution into a ***unified data structure*** — base + name — whether that base is a regular JS object
-(as in property access) or an Environment Record (as in identifier resolution).
+Essentially, ***References*** are a simple mechanism of representing name bindings; it's a way to abstract both object-property resolution and variable resolution into a ***unified data structure*** — base + name — whether that base is a regular JS object(as in property access) or an Environment Record (as in identifier resolution).
 
 
 ```javascript
@@ -164,26 +153,69 @@ var ref = {
 };
 
 ```
-The value of ***base***  is further an ***Object Environment Record*** which acts as the ***LexcalEnvironment*** of the current 
-running execution context. But in order to explain the result of calling the function ***getName***, we need have some more knowleadge
-about the ***Environment Record*** as shown below. 
+The value of ***base***  is further an ***Object Environment Record*** which acts as the ***LexcalEnvironment*** of the current running execution context. But in order to explain the result of calling the function ***getName***, we need have some more knowleadge about the ***Environment Record*** as shown below. 
 
-- For **Declarative Environment Records**  The ***ImplicitThisValue***  always return ***undefined*** as their ImplicitThisValue. 
-**Object Environment Records** return ***undefined*** as their ImplicitThisValue unless their ***provideThis*** flag is **true**.  
+- For **Declarative Environment Records**  The ***ImplicitThisValue***  always return ***undefined*** as their ImplicitThisValue. **Object Environment Records** return ***undefined*** as their ImplicitThisValue unless their ***provideThis*** flag is **true**.  
 
-- ***Object Environment Records*** can be configured to provide their ***binding object*** as an ***implicit this value*** for
-use in ***function calls***. This capability is used to specify the behaviour of **With Statement** induced bindings. The capability 
-is controlled by a **provideThis** Boolean value that is associated with each object environment record. By default, the value of 
-**provideThis** is **false** for any object environment record.
+- ***Object Environment Records*** can be configured to provide their ***binding object*** as an ***implicit this value*** for use in ***function calls***. This capability is used to specify the behaviour of **With Statement** induced bindings. The capability is controlled by a **provideThis** Boolean value that is associated with each object environment record. By default, the value of **provideThis** is **false** for any object environment record.
 
-- When calling a function, if the ***base*** of the result of evaluating ***MemberExpression*** is an ***Environment Record***,  
-***thisValue*** is set to the result of calling the ***ImplicitThisValue*** concrete method of GetBase(ref), where ***ref*** is
-the result of evaluating ***MemberExpression*** .
+- When calling a function, if the ***base*** of the result of evaluating ***MemberExpression*** is an ***Environment Record***, ***thisValue*** is set to the result of calling the ***ImplicitThisValue*** concrete method of GetBase(ref), where ***ref*** is the result of evaluating ***MemberExpression*** .
 > The function calls take the form of [CallExpression : MemberExpression Arguments](https://es5.github.io/#x11.2.3)
 
-So when the funciton ***getName*** is called, the ***thisValue*** is set to  the result of calling the ***ImplicitThisValue*** 
-concrete method of GetBase(ref), the binding object ***obj*** of the ***Object Environment Record***.  So when the function code
-is executed, it will alert "obj" instead of "global".
+So when the funciton ***getName*** is called, the ***thisValue*** is set to  the result of calling the ***ImplicitThisValue*** concrete method of GetBase(ref), the binding object ***obj*** of the ***Object Environment Record***.  So when the function code is executed, it will alert "obj" instead of "global".
+
+
+## More examples
+
+Given we have an object like this: 
+```javascript
+foo = {
+   prop: "test",
+   bar: function() {
+      console.log(this.prop);
+   }
+}
+```
+And we will explore ***this*** behavior of (f = foo.bar)(), (1,foo.bar)(), and (foo.bar)().
+
+Let's start with the first one. The expression in question is known as **Simple Assignment**(=).`foo = 1`, `g = function(){}`, and so on. If we look at the steps taken to evaluate [Simple Assignment](https://es5.github.io/#x11.13.1), we'll see one important detail:
+(AssignmentExpression : LeftHandSideExpression = AssignmentExpression)
+
+1. Let ***lref*** be the result of evaluating LeftHandSideExpression.
+2. Let ***rref*** be the result of evaluating AssignmentExpression.
+3. Let **rval** be GetValue(***rref***). :star:
+4. Throw a SyntaxError exception if the following conditions are all true(......)
+5. Call PutValue(lref, rval).
+6. Return rval.
+
+----------------
+
+Notice that the expression on the right is passed through internal `GetValue()` before assignment. `GetValue()` in its turn, transforms foo.bar ***Reference*** into an actual ***function object***. :star: And of course then we proceed to the usual Function Call with ***NOT a reference***:exclamation:, which results in `this=undefined`.
+
+The same story happens with comma operator:
+(Expression : Expression , AssignmentExpression)
+
+1. Let ***lref*** be the result of evaluating ***Expression***.
+2. Call GetValue(***lref***).
+3. Let rref be the result of evaluating ***AssignmentExpression***.
+4. Return GetValue(***rref***).:star:
+
+----------------
+
+`(1,foo.bar)()` is evaluated as a function object and Function Call with ***NOT a reference***:exclamation:, results in `this=undefined`.
+
+Finally, the grouping operator:
+(PrimaryExpression : ( Expression ))
+
+1. Return the result of evaluating Expression. This may be of type Reference. 
+> This algorithm does ***not apply GetValue***:exclamation: to the result of evaluating Expression. The principal motivation for this is so that operators such as delete and typeof may be applied to parenthesised expressions.
+
+----------------
+
+So `foo.bar()` and `(foo.bar)()` are absolutely identical, having ***this*** set to ***foo*** since a ***Reference***(not further evaluated with getValue) is created and passed to a Function call.
+> For `(foo.bar)`, only Property accessing is done, and no more evaluation is taken. And the result of Property accessing is 
+a ***Reference***.
+
 
 ## References
 - [Know thy reference](http://perfectionkills.com/know-thy-reference/)
