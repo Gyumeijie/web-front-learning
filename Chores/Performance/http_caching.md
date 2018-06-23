@@ -107,7 +107,7 @@ For example:
 
 ## Defining optimal Cache-Control policy
 
-![http cache decision tree](../../assets/http-cache-decision-tree.png)
+![http cache decision tree](../../assets/http_cache_decision_tree.png)
 
 Follow the decision tree above to determine the optimal caching policy for a particular resource, or a set of resources, that your application uses. Ideally, you should aim to cache as many responses as possible on the client for the longest possible period, and provide validation tokens for each response to enable efficient revalidation.
 
