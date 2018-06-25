@@ -27,6 +27,19 @@ The production CallExpression : MemberExpression Arguments is evaluated as follo
 8. Return the result of calling the ***[[Call]]*** internal `method` on ***func***, providing ***thisValue*** as the this value and providing the list ***argList*** as the argument values.
 > Step 8: call the ***[[Call]]*** internal method.
 
+
+## Two ways to call a function
+
+Given a function **func**, as far as the determination of **this** concerned, there are basically two ways to have ***func*** called: 
+
+- calling directly
+> Normal function call, a process of determining the value of **this** is needed.
+
+- calling indirectly
+> Using `Function.prototype.call`, `Function.prototype.apply`, `Function.prototype.bind` and so on. In this way, the value of **this** is given directly, no intermediary process for determining the value of **this**.
+
+![function_call](../../../assets/function_call.png)
+
 ## Caveats
 
 You may heard about **value** or **reference** type for a ***variable***, but **Reference** here is not for variable, it is for a ***resolved name binding***.
