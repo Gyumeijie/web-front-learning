@@ -146,7 +146,7 @@ If an object is capable of converting to more than one primitive type, it may us
 The internal operation ToPrimitive() has the following signature:
 > ToPrimitive(input, PreferredType?)
 
-The optional parameter PreferredType is either Number or String. PreferredType is omitted and thus Number for non-dates, String for dates.
+The optional parameter PreferredType is either ***Number*** or ***String***. PreferredType is omitted and thus Number for **non-dates**, String for **dates**. :star: :star:
 
 
 
