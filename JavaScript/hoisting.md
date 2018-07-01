@@ -29,7 +29,17 @@ code and, if it is function code, argument List ***args***:
       2. If ***n*** is greater than ***argCount***, let ***v*** be undefined otherwise let ***v*** be the value of the ***n’th*** element of ***args***.
       3. Let ***argAlreadyDeclared*** be the result of calling ***env***’s HasBinding concrete method passing ***argName*** as the argument.
       4. If ***argAlreadyDeclared*** is false, call ***env***’s CreateMutableBinding concrete method passing ***argName*** as the argument.
-      5. Call ***env***’s SetMutableBinding concrete method passing ***argName***, ***v***, and ***strict*** as the arguments.
+      >
+      > ```javascript
+      > function duplicateArgName(name, name) {
+      > 
+      >    console.log(name)
+      > }
+      > 
+      > duplicateArgName("Yu", "Mei") // Mei
+      > ```
+      >
+      5. Call ***env***’s SetMutableBinding concrete method passing ***argName***, ***v***, and ***strict*** as the arguments. :star:
 
 > Step 4: create ***names*** in ***env*** and binding the ***args***(value) to ***the formal parameters***(names).
 
@@ -55,7 +65,7 @@ code and, if it is function code, argument List ***args***:
       2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"*** and ***argsObj*** as arguments.
    3. Else,
       1. Call ***env***’s **CreateMutableBinding** concrete method passing the String ***"arguments"*** as the argument.
-      2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"***, ***argsObj*** and ***false*** as arguments.
+      2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"*** , ***argsObj*** and ***false*** as arguments.
 
 > Steps 6 and 7: Create ***arguments object*** if it is not declared.  
 
@@ -65,6 +75,17 @@ function useArguments(arg1){
    var arguments = arg1;
 }
 ```
+
+When the number of ***args*** is greater than that of ***names***, we don't lost the unamed args, the ***arguments object*** keeps them. Even though them don't have names, We can still access the unnamed args through the arguments object.
+```javascript
+function func(namedArgOne, namedArgTwo) {
+   console.log(namedArgOne, namedArgTwo, argument[2])
+}
+
+func("namedArgOne", "namedArgTwo", "unnameArg")
+// namedArgOne namedArgTwo unnameArg
+```
+
 ---------
 
 8. For each ***VariableDeclaration*** and ***VariableDeclarationNoIn*** d in code, **in source text order** do
