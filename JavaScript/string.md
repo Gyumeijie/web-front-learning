@@ -1,1 +1,1 @@
-![selectors](../assets/String.svg)
+![string](../assets/string.svg)
