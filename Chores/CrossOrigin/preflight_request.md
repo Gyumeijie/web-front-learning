@@ -129,7 +129,7 @@ Response Header:
 ```
 > Note that the `Access-Control-Allow-Headers` contains `X-CustomHeader` , so the browser will not raise an error.
 
-If the preflighted request pass the browser's check, then an actual request will be initiated.
+If the preflighted request pass `access control check`, then an actual request will be initiated.
 
 ```
 Request Header:
