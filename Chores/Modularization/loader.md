@@ -2,7 +2,7 @@
 
 A module loader interprets and loads a module written in a certain [module format](./format.md). 
 
-A module loader runs at runtime:
+A module loader runs at **runtime** :star: :
 
 - :one:	load the module loader in the browser
 - :two: tell the module loader which main app or entry file to load
