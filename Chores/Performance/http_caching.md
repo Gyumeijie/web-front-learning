@@ -82,7 +82,7 @@ Entity tags are arbitrary labels (quoted strings) attached to the document.  	Th
 
 #####  Why need Entity Tag Revalidation
 
-There are some situations when the **last-modified date revalidation*** is inadequate: 
+There are some situations when the ***last-modified date revalidation*** is inadequate: 
 - Some documents may be rewritten periodically (e.g., from a background process) but actually often contain the same data. The modification dates will change, even though the content hasn't. 
 > Modification dates changes but not the content
 
