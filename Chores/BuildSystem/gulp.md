@@ -64,6 +64,5 @@ gulp.task('watch', function(){
 // run both 'scripts' and 'watch' tasks and asynchronously runs all tasks at the same time
 gulp.task('default', ['scripts', 'watch'])
 ```
-
-
-
+> Like the bulid tool ***make***, in ***makefile*** we can have more than one build objectives, and then designate which to  
+build in the command line.
