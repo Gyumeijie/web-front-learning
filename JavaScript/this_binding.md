@@ -63,7 +63,7 @@ newFunc();
 4. Else set the `ThisBinding` to ***thisArg***.
 > \#1 Setting the ThisBinding component of the current running execution context. And this is how the `this` is bound.
 
-5. Let ***localEnv*** be the result of calling NewDeclarativeEnvironment passing the value of the **[[Scope]]** internal property of F as the argument.
+5. Let ***localEnv*** be the result of calling NewDeclarativeEnvironment passing the value of the **[[Scope]]** internal property of F as the argument. :star: :star: :star:
 6. Set the `LexicalEnvironment` to ***localEnv***.
 7. Set the `VariableEnvironment` to ***localEnv***.
 >  \#2 Setting the LexicalEnvironment  and VariableEnvironment components.
