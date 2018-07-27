@@ -26,7 +26,7 @@ name1=value1&name2=value2
 # The PUT Method
 PUT is used to send data to a server to create/update a resource.
 
-The difference between POST and PUT is that PUT requests are idempotent. That is, calling the same PUT request 
+The difference between POST and PUT is that PUT requests are ***idempotent***. :star: That is, calling the same PUT request 
 multiple times will always produce the same result. In contrast, calling a POST request repeatedly will have 
 side effects of creating the same resource multiple times.
 
