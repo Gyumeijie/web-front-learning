@@ -3,18 +3,18 @@
 Because of the way JavaScript works, with the ***prototype chain***, the sharing of functionality between objects is often called **delegation**. Specialized objects delegate functionality to a generic object type.
 
 The following shows the lookup of `propery` through along the **prototype chain**.
-![property_lookup](./assets/property_lookup.png)
+![property_lookup](../assets/property_lookup.png)
 
 In contrast, the lookup(or resolution) of `identifier` is through the **scope chain**.
 
 ## ES5-style inheritance
 
-![es5_style_inheritance](./assets/es5_style_inheritance.png)
+![es5_style_inheritance](../assets/es5_style_inheritance.png)
 
 
 ## ES6-style inheritance
 
-![es6_style_inheritance](./assets/es6_style_inheritance.png)
+![es6_style_inheritance](../assets/es6_style_inheritance.png)
 
 > Note that the inner **[[Class]]** property of instance may not set to SubClass or SuperClass, the result is dependent on wether the `constructor` ***SubClass*** or ***SuperClass*** is builtin functio nor not.
 
