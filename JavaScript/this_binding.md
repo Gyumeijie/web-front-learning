@@ -49,6 +49,18 @@ When control enters an execution context, the execution context’s **ThisBindin
 The following steps are performed when control enters the execution context for function code contained in function object ***F***, a caller provided ***thisArg***, and a caller provided ***argumentsList***:
 1. If the function code is **strict code**, set the `ThisBinding` to ***thisArg***.
 2. Else if ***thisArg*** is **null** or **undefined**, set the `ThisBinding` to the **global object**.
+```javascript
+function func() {
+   console.log(typeof this);
+   // console.log(this); the `this` keyword refers to the global object
+   console.log(this.length);
+}
+var primitive = null;
+// var primitive = undefined;
+var newFunc = func.bind(primitive);
+newFunc();
+// log "object" and "0"
+```
 3. Else if Type(***thisArg***) is not Object, set the `ThisBinding` to ToObject(***thisArg***).
 ```javascript
 function func() {
