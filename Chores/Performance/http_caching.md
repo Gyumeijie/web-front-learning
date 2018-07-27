@@ -64,7 +64,7 @@ The cached copy may have expired, but the server content still is the same as th
 
 To fix this, HTTP provides a way for clients to request a copy ***only if the resource has changed***, using special requests called **conditional requests**.
 
-Each conditional works on a particular **validator**. A validator is a particular ***attribute** of the ***document instance*** that is tested. 
+Each conditional works on a particular **validator**. A validator is a particular ***attribute*** of the ***document instance*** that is tested. 
 
 ![cache validator](../../assets/validator.png)
 
