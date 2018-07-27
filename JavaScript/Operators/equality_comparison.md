@@ -26,6 +26,7 @@ The comparison `x == y`, where x and y are values, produces true or false. Such 
       0 == false   // true
       "0" == false // true
     ``` 
+    > string --> number, boolean --> number
     4. If one is ***Object***, and the other is either ***String*** or ***Number***, then converting the ***Object*** to Primitive using `ToPrimitive`, [more information](../types_and_grammar.md). :star: :star:
    ```javascript
      person = {
