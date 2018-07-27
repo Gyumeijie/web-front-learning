@@ -96,5 +96,5 @@ Take what the `thisArg` is:
 Do something on `thisArg` according to it's type:
 1. ThisBinding <- global object (***null*** or ***undefined***)
 2. ThisBinding <- ToObject(thisArg) (***primitives*** except null and undefined)
-> If thisArg is not valid object, try some convertions
+> If thisArg is not valid object, try some conversions
 3. ThisBinding <- thisArg (***object***)
