@@ -59,7 +59,8 @@ code and, if it is function code, argument List ***args***:
 
 6. Let ***argumentsAlreadyDeclared*** be the result of calling ***env***’s HasBinding concrete method passing ***"arguments"*** as the argument.
 7. If ***code*** is function code and ***argumentsAlreadyDeclared*** is **false**, then  
-   1. Let ***argsObj*** be the result of calling the abstract operation **CreateArgumentsObject** passing ***func***, ***names***, ***args***, ***env*** and ***strict*** as arguments.
+   1. Let ***argsObj*** be the result of calling the abstract operation **CreateArgumentsObject** passing ***func***, ***names***, ***args***, ***env*** and ***strict*** as arguments. :star: 
+   > All passed-in values will be kept in **arguments** which is an array-like object.
    2. If ***strict*** is true, then
       1. Call ***env***’s **CreateImmutableBinding** concrete method passing the String ***"arguments"*** as the argument.
       2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"*** and ***argsObj*** as arguments.
@@ -67,7 +68,7 @@ code and, if it is function code, argument List ***args***:
       1. Call ***env***’s **CreateMutableBinding** concrete method passing the String ***"arguments"*** as the argument.
       2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"*** , ***argsObj*** and ***false*** as arguments.
 
-> Steps 6 and 7: Create ***arguments object*** if it is not declared.  
+> Steps 6 and 7: Create ***arguments object*** if it is not declared yet. :star:   
 
 In the following example, there is no ***argument object*** is created.
 ```javascript
