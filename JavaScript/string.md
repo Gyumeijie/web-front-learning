@@ -14,3 +14,23 @@
    string.match(regexp)
    //  ["repeat", "repeat", "repeat", "repeat"]  // Array
 ```
+## Usage
+
+- indexOf 
+
+The parameter of ***indexOf*** can be either a primitive or an object.
+
+```javascript
+var obj = {
+   name: "YuMeiJie",
+   age: 25
+}
+
+var array = ["string", 0, obj]
+array.indexOf(obj) // 2
+```
+
+```javascript
+var array = ["string", [0,1,2]]
+array.indexOf([0,1,2]) // -1
+```
