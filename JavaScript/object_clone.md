@@ -59,9 +59,9 @@ function deepCopy(obj, hash = new WeakMap()) {
    hash.set(obj, properties)
    
    if (obj instanceof Map) {
-       Array.from(obj, ([key, val]) => properties.set(deepClone(key, hash), deepClone(val, hash)))
+       Array.from(obj, ([key, val]) => properties.set(deepCopy(key, hash), deepCopy(val, hash)))
    } else if (obj instanceof Set) {
-       Array.from(obj, (key) => properties.add(deepClone(key, hash)))
+       Array.from(obj, (key) => properties.add(deepCopy(key, hash)))
    } else { 
        return Object.assign(properties, ...Object.keys(obj).map(function(key) {
             return {[key]: deepCopy(obj[key], hash)} 
