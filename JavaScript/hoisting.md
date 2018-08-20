@@ -28,7 +28,7 @@ code and, if it is function code, argument List ***args***:
       1. Let ***n*** be the current value of n plus 1.
       2. If ***n*** is greater than ***argCount***, let ***v*** be undefined otherwise let ***v*** be the value of the ***n’th*** element of ***args***.
       3. Let ***argAlreadyDeclared*** be the result of calling ***env***’s HasBinding concrete method passing ***argName*** as the argument.
-      4. If ***argAlreadyDeclared*** is false, call ***env***’s CreateMutableBinding concrete method passing ***argName*** as the argument.
+      4. If ***argAlreadyDeclared*** is false, call ***env***’s :arrow_forward:CreateMutableBinding:arrow_backward: concrete method passing ***argName*** as the argument.
       >
       > ```javascript
       > function duplicateArgName(name, name) {
@@ -39,7 +39,7 @@ code and, if it is function code, argument List ***args***:
       > duplicateArgName("Yu", "Mei") // Mei
       > ```
       >
-      5. Call ***env***’s SetMutableBinding concrete method passing ***argName***, ***v***, and ***strict*** as the arguments. :star:
+      5. Call ***env***’s :arrow_forward:SetMutableBinding:arrow_backward: concrete method passing ***argName***, ***v***, and ***strict*** as the arguments. :star:
 
 > Step 4: create ***names*** in ***env*** and binding the ***args***(value) to ***the formal parameters***(names).
 
@@ -51,8 +51,19 @@ code and, if it is function code, argument List ***args***:
    2. Let ***fo*** be the result of **instantiating** FunctionDeclaration ***f***.
    > ***fo*** then refers to the newly-created funciton object
    3. Let ***funcAlreadyDeclared*** be the result of calling ***env***’s HasBinding concrete method passing ***fn*** as the argument.
-   4. If ***funcAlreadyDeclared*** is **false**, call ***env***’s SetMutableBinding concrete method passing ***fn***, ***fo***, and ***strict*** as the arguments. (**simplified**)
-
+   4. If ***funcAlreadyDeclared*** is **false**, call ***env***’s :arrow_forward:**CreateMutableBinding**:arrow_backward: concrete method passing fn and configurableBindings as the arguments.
+   5. Call ***env***’s :arrow_forward:**SetMutableBinding**:arrow_backward: concrete method passing ***fn***, ***fo***, and ***strict*** as the arguments.
+   > Call the SetMutableBinding method whether a binding was created before(in step 4.3) or not, this action will ***override*** whatever the binding is set before. This step, unlike the step 5.4 which is **conditional**, is **mandatory**.
+   
+   ```javascript
+　　function b(c){
+　　　　console.log(c);
+　　　　function c(){
+　　　　　　　console.log("d");
+　　　　}
+　　}
+　　b(10); // function c(){ console.log("d"); }
+   ```
 > Step 5: processing ***FunctionDeclarations***.  
 
 ---------
@@ -65,8 +76,8 @@ code and, if it is function code, argument List ***args***:
       1. Call ***env***’s **CreateImmutableBinding** concrete method passing the String ***"arguments"*** as the argument.
       2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"*** and ***argsObj*** as arguments.
    3. Else,
-      1. Call ***env***’s **CreateMutableBinding** concrete method passing the String ***"arguments"*** as the argument.
-      2. Call ***env***’s **InitializeImmutableBinding** concrete method passing ***"arguments"*** , ***argsObj*** and ***false*** as arguments.
+      1. Call ***env***’s :arrow_forward:**CreateMutableBinding**:arrow_backward: concrete method passing the String ***"arguments"*** as the argument.
+      2. Call ***env***’s :arrow_forward:**SetMutableBinding**:arrow_backward: concrete method passing ***"arguments"*** , ***argsObj*** and ***false*** as arguments.
 
 > Steps 6 and 7: Create ***arguments object*** if it is not declared yet. :star:   
 
@@ -93,13 +104,24 @@ func("namedArgOne", "namedArgTwo", "unnameArg")
    1. Let ***dn*** be the Identifier in ***d***.
    2. Let ***varAlreadyDeclared*** be the result of calling ***env***’s HasBinding concrete method passing ***dn*** as the argument.
    3. If ***varAlreadyDeclared*** is **false**, then
-      1. Call ***env***’s **CreateMutableBinding** concrete method passing ***dn*** and ***configurableBindings*** as the arguments.
-      2. Call ***env***’s **SetMutableBinding** concrete method passing ***dn***, ***undefined***, and ***strict*** as the arguments.
-      > variables are initialized with value ***undefined***, and functions are initialize with corresponding ***function object***.
-
+   > Both CreateMutableBinding and SetMutableBinding are **conditional**.
+      1. Call ***env***’s :arrow_forward:**CreateMutableBinding**:arrow_backward: concrete method passing ***dn*** and ***configurableBindings*** as the arguments.
+      2. Call ***env***’s :arrow_forward:**SetMutableBinding**:arrow_backward: concrete method passing ***dn***, ***undefined***, and ***strict*** as the arguments.
+     > variables are initialized with value ***undefined***, and functions are initialize with corresponding ***function object***.
+```javascript
+  function b(c){
+　　console.log(c);
+    var c = 1000 
+  }
+　b(10); // 10
+```  
 > Step 8: processing ***VariableDeclarations***
 
 ---------
+
+## Priority
+
+```FunctionDecalrations > Parameters > VariableDeclarations``` :star:
 
 Note that ***FunctionDeclarations*** are processed before ***VariableDeclarations***, so If a variable has the same name with
 a function, then **name** will be bound to the ***function object***(FunctionDeclarations) not the ***undefined***(VariableDeclarations)
